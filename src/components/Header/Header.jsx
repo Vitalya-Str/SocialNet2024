@@ -4,7 +4,7 @@ const Header = () => {
 
     return (
         <div className={s.header}>
-            <img src="https://e7.pngegg.com/pngimages/287/216/png-clipart-black-and-red-wings-logo-illustration-logo-phoenix-art-phoenix-leaf-logo.png" alt="logo" />
+            <img src="https://www.citypng.com/public/uploads/preview/punisher-black-skull-star-sticker-hd-transparent-png-735811696670796g8jd3b4fbs.png" alt="logo" />
         </div>
     )
 }
