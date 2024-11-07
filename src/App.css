@@ -1,7 +1,9 @@
 .container {
+    margin: 0 auto;
+    width: 1200px;
     display: grid;
-    grid-template-columns: 200px auto;
-    grid-template-rows: 50px auto;
+    grid-template-columns: 2fr 10fr;
+    grid-template-rows: 50px 1fr;
     grid-template-areas:
         'h h '
         's content';
@@ -10,5 +12,5 @@
 
 .content {
     grid-area: content;
-    background-color: aqua;
+    background-color: green;
 }

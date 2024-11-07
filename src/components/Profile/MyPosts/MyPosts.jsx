@@ -1,15 +1,19 @@
-import s from './MyPosts.module.css'
-import Posts from './Post/Posts'
+import Post from "./Post/Post"
 
 
 const MyPosts = () => {
 
     return (
         <div >
-            <textarea name="MyPosts" id="">My Posts</textarea>
-           <div><button>Send</button></div> 
-           <Posts/>
-           <Posts/>
+            <div>
+                <textarea name="MyPosts" id="">My Posts</textarea>
+            </div>
+            <div>
+                <button>Send</button>
+            </div>
+            <h3>My Posts</h3>
+            <Post />
+            <Post />
         </div>
     )
 }

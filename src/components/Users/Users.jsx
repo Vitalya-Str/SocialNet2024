@@ -1,4 +1,3 @@
-import s from './Users.module.css'
 
 const Users = () => {
 

@@ -1,9 +1,17 @@
 .sidebar {
     grid-area: s;
     background-color: darkseagreen;
-}
-.sidebar a {
-    text-decoration: none;
-    color: white;
+    padding: 10px;
+
 }
 
+.style a {
+    text-decoration: none;
+    color: white;
+
+}
+
+.style a.active {
+    color: blue;
+    font-size: 20px;
+}
