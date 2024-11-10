@@ -7,7 +7,6 @@ import Profile from './components/Profile/Profile';
 import Dialogs from './components/Dialogs/Dialogs';
 import Users from './components/Users/Users';
 import { Routes, Route } from 'react-router-dom'
-import { addPost } from './redux/state';
 
 
 const App = (props) => {
@@ -16,7 +15,7 @@ const App = (props) => {
     <SideBar state={props.state.sideBar} />
     <div className='content'>
       <Routes>
-        <Route path="/profile" element={<Profile state={props.state.profilePage} addPost={addPost} />} exact />
+        <Route path="/profile" element={<Profile state={props.state.profilePage} addNewPostText={props.addNewPostText} addPost={props.addPost} />} exact />
         <Route path="/dialogs" element={<Dialogs state={props.state.dialogsPage} />} exact />
         <Route path="/users" element={<Users />} />
       </Routes>
