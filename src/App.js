@@ -1,6 +1,7 @@
 
 import React from 'react';
 import './App.css';
+import state from './redux/state';
 import Header from './components/Header/Header';
 import SideBar from './components/SideBar/SideBar';
 import Profile from './components/Profile/Profile';
@@ -16,8 +17,8 @@ const App = () => {
     <SideBar />
     <div className='content'>
       <Routes>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/dialogs" element={<Dialogs />} />
+        <Route path="/profile" element={<Profile state = {state.profilePage} />} exact />
+        <Route path="/dialogs" element={<Dialogs state ={state.dialogsPage} />} exact />
         <Route path="/users" element={<Users />} />
       </Routes>
     </div>

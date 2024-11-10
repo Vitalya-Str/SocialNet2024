@@ -5,17 +5,16 @@ import Message from "./Message/Message"
 
 const Dialogs = (props) => {
 
+    const dialogsElement = props.state.dialog.map(d => <Dialog key={d.id} id={d.id} name={d.name} />)
+    const messageElemnt = props.state.messages.map(m => <Message key={m.id} id={m.id} message={m.message} />)
+
     return (
-        <div className= {s.container}>
+        <div className={s.container}>
             <div className={s.dialogsItem}>
-                <Dialog name='Vitalya' id='1' />
-                <Dialog name='Julya' id='2' />
-                <Dialog name='Artem' id='3' />
+                {dialogsElement}
             </div>
             <div className={s.messageItem} >
-                <Message message = 'hi'/>
-                <Message message = 'Yo!'/>
-                <Message message = 'No!'/>
+                {messageElemnt}
             </div>
 
         </div>
