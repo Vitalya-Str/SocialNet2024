@@ -12,11 +12,11 @@ import { Routes, Route } from 'react-router-dom'
 const App = (props) => {
   return <div className='container'>
     <Header />
-    <SideBar state={props.state.sideBar} />
+    <SideBar state={props.store.state.sideBar} />
     <div className='content'>
       <Routes>
-        <Route path="/profile" element={<Profile state={props.state.profilePage} addNewPostText={props.addNewPostText} addPost={props.addPost} />} exact />
-        <Route path="/dialogs" element={<Dialogs state={props.state.dialogsPage} />} exact />
+        <Route path="/profile" element={<Profile state={props.store.state.profilePage} addNewPostText={props.store.addNewPostText} addPost={props.store.addPost} />} exact />
+        <Route path="/dialogs" element={<Dialogs state={props.store.state.dialogsPage} />} exact />
         <Route path="/users" element={<Users />} />
       </Routes>
     </div>
