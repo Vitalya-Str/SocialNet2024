@@ -1,10 +1,16 @@
 .container {
-    display: grid;
-    grid-template-columns: 4fr 10fr;
-    padding: 10px;
-
+  display: grid;
+  grid-template-columns: 4fr 10fr;
+  padding: 10px;
 }
 
-.dialogsItem {}
+.dialogsItem {
+}
 
-.messageItem {}
+.messageItem {
+}
+
+.text {
+  padding-top: 10px;
+  
+}

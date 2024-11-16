@@ -1,39 +1,35 @@
-import Post from "./Post/Post"
-import React from "react"
-
+import Post from "./Post/Post";
+import React from "react";
+import { addNewPostAC, addPostAC } from "../../../redux/state";
 
 const MyPosts = (props) => {
+  const PostsElement = props.state.posts.map((p) => <Post key={p.id} id={p.id} post={p.post} likeCount={p.likeCount} />);
 
-    const PostsElement = props.state.posts.map(p => <Post key={p.id} id={p.id} post={p.post} likeCount={p.likeCount} />)
+  const newPostElement = React.createRef();
 
-    const newPostElement = React.createRef()
+  const addPost = () => {
+    props.dispatch(addPostAC());
+  };
 
-    const addPost = () => {
+  const addNewPost = () => {
+    const text = newPostElement.current.value;
+    props.dispatch(addNewPostAC(text));
+  };
 
-        props.addPost(props.state.newPostText)
+  return (
+    <div>
+      <h3>My Posts</h3>
 
-    }
+      <div>
+        <textarea onChange={addNewPost} name="MyPosts" ref={newPostElement} value={props.state.newPostText} />
+      </div>
+      <div>
+        <button onClick={addPost}>Send</button>
+      </div>
 
-    const addNewPost = () => {
-        const text = newPostElement.current.value
-        props.addNewPostText(text)
-    }
+      {PostsElement}
+    </div>
+  );
+};
 
-    return (
-        <div >
-            <h3>My Posts</h3>
-
-            <div>
-                <textarea onChange={addNewPost} name="MyPosts" ref={newPostElement} value={props.state.newPostText} />
-            </div>
-            <div>
-                <button onClick={addPost} >Send</button>
-            </div>
-
-            {PostsElement}
-
-        </div>
-    )
-}
-
-export default MyPosts
+export default MyPosts;
