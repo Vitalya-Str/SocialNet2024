@@ -6,7 +6,7 @@ const active = (navData) => navData.isActive ? s.active : ""
 
 const SideBar = (props) => {
 
-    const friendsItem = props.state.map(f => <Friends key = {f.id} id={f.id} name ={f.name} />)
+    const friendsItem = props.sideBar.friends.map(f => <Friends key = {f.id} id={f.id} name ={f.name} />)
 
     return (
         <div className={s.sidebar}>
