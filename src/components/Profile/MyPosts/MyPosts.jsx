@@ -1,6 +1,6 @@
+import { addNewPostAC, addPostAC } from "../../../redux/profileReducer";
 import Post from "./Post/Post";
 import React from "react";
-import { addNewPostAC, addPostAC } from "../../../redux/state";
 
 const MyPosts = (props) => {
   const PostsElement = props.state.posts.map((p) => <Post key={p.id} id={p.id} post={p.post} likeCount={p.likeCount} />);

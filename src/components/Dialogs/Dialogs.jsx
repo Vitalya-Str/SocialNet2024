@@ -1,4 +1,4 @@
-import { addMessageAC, addNewMessageTextAC } from "../../redux/state";
+import { addMessageAC, addNewMessageTextAC } from "../../redux/dialogsReducer";
 import Dialog from "./Dialog/Dialog";
 import s from "./Dialogs.module.css";
 import Message from "./Message/Message";

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import store from "./redux/state";
+import store from "./redux/store-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -17,6 +17,9 @@ const reRender = (state) => {
   );
 };
 
-reRender(store.useState());
+reRender(store.getState());
 
-store.subcriber(reRender);
+store.subscribe(()=>{
+  const state = store.getState()
+  reRender(state)
+})

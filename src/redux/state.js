@@ -2,12 +2,6 @@ import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
 import sideBarReducer from "./sideBarReducer";
 
-const ADD_POST = "ADD_POST";
-const ADD_NEW_POST_TEXT = "ADD_NEW_POST_TEXT";
-
-const ADD_MESSAGE = "ADD_MESSAGE";
-const ADD_NEW_MESSAGE_TEXT = "ADD_NEW_MESSAGE_TEXT";
-
 const store = {
   _state: {
     profilePage: {
@@ -50,22 +44,6 @@ const store = {
   subcriber(observer) {
     this._reRender = observer;
   },
-};
-
-export const addNewMessageTextAC = (message) => {
-  return { type: ADD_NEW_MESSAGE_TEXT, message };
-};
-
-export const addMessageAC = () => {
-  return { type: ADD_MESSAGE };
-};
-
-export const addPostAC = () => {
-  return { type: ADD_POST };
-};
-
-export const addNewPostAC = (text) => {
-  return { type: ADD_NEW_POST_TEXT, text };
 };
 
 export default store;
