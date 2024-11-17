@@ -1,4 +1,3 @@
-import { addMessageAC, addNewMessageTextAC } from "../../redux/dialogsReducer";
 import Dialog from "./Dialog/Dialog";
 import s from "./Dialogs.module.css";
 import Message from "./Message/Message";
@@ -9,12 +8,11 @@ const Dialogs = (props) => {
   const messageElemnt = props.state.messages.map((m) => <Message key={m.id} id={m.id} message={m.message} />);
 
   const newMessageElement = React.createRef();
-  const addMessage = () => {
-    props.dispatch(addMessageAC());
-  };
-  const addNewMessage = () => {
+
+  const newMessage = () => {
     const text = newMessageElement.current.value;
-    props.dispatch(addNewMessageTextAC(text));
+
+    props.addNewMessage(text);
   };
 
   return (
@@ -23,10 +21,10 @@ const Dialogs = (props) => {
       <div className={s.messageItem}>{messageElemnt}</div>
       <div>
         <div className={s.text}>
-          <textarea onChange={addNewMessage} ref={newMessageElement} value={props.state.newMessage} />
+          <textarea onChange={newMessage} ref={newMessageElement} value={props.state.newMessage} />
         </div>
         <div>
-          <button onClick={addMessage}>Send</button>
+          <button onClick={props.addMessage}>Send</button>
         </div>
       </div>
     </div>

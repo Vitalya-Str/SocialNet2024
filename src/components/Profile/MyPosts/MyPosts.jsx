@@ -1,4 +1,3 @@
-import { addNewPostAC, addPostAC } from "../../../redux/profileReducer";
 import Post from "./Post/Post";
 import React from "react";
 
@@ -7,13 +6,9 @@ const MyPosts = (props) => {
 
   const newPostElement = React.createRef();
 
-  const addPost = () => {
-    props.dispatch(addPostAC());
-  };
-
   const addNewPost = () => {
     const text = newPostElement.current.value;
-    props.dispatch(addNewPostAC(text));
+    props.addNewPost(text);
   };
 
   return (
@@ -24,7 +19,7 @@ const MyPosts = (props) => {
         <textarea onChange={addNewPost} name="MyPosts" ref={newPostElement} value={props.state.newPostText} />
       </div>
       <div>
-        <button onClick={addPost}>Send</button>
+        <button onClick={props.addPost}>Send</button>
       </div>
 
       {PostsElement}
