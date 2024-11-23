@@ -10,16 +10,19 @@ const initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-  const stateCopy = { ...state };
   if (action.type === ADD_POST) {
-    stateCopy.posts = [...state.posts];
-    const post = { id: 3, post: stateCopy.newPostText, likeCount: 55 };
-    stateCopy.posts.push(post);
-    stateCopy.newPostText = "";
-    return stateCopy;
+    const body = state.newPostText;
+
+    return {
+      ...state,
+      posts: [...state.posts, { id: 3, post: body, likeCount: 55 }],
+      newPostText: "",
+    };
   } else if (action.type === ADD_NEW_POST_TEXT) {
-    stateCopy.newPostText = action.text;
-    return stateCopy;
+    return {
+      ...state,
+      newPostText: action.text,
+    };
   }
 
   return state;
