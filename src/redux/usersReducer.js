@@ -1,41 +1,9 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
+const GET_USERS = "GET_USERS";
 
 const initialState = {
-  users: [
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 1,
-      following: true,
-      fullname: "Vitalya S",
-      status: "status",
-      location: { Counry: "Kazakhstan", City: "Петропаловск" },
-    },
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 2,
-      following: false,
-      fullname: "Julia S",
-      status: "status!!!",
-      location: { Counry: "Kazakhstan", City: "Astana" },
-    },
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 3,
-      following: false,
-      fullname: "Artem S",
-      status: "status....",
-      location: { Counry: "Russia", City: "Moscow" },
-    },
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 4,
-      following: true,
-      fullname: "Alice S",
-      status: "@@@@@@@",
-      location: { Counry: "Belarus", City: "Minsk" },
-    },
-  ],
+  users: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -44,20 +12,23 @@ const usersReducer = (state = initialState, action) => {
       ...state,
       users: state.users.map((u) => {
         if (u.id === action.userId) {
-          return { ...u, followed: true };
+          return { ...u, following: true };
         }
+        return u;
       }),
     };
   } else if (action.type === UNFOLLOW) {
     return {
       ...state,
-      users: state.users.map((u)=> {
-        if(u.id === action.userId){
-          return {...u, following: false}
+      users: state.users.map((u) => {
+        if (u.id === action.userId) {
+          return { ...u, following: false };
         }
-      })
-    }
-  }
+        return u;
+      }),
+    };
+  } else if (action.type === GET_USERS) { /* {...state, users: [...state.users, ...action.users]} */
+    return { ...state, users: [...action.users] };
   }
   return state;
 };
@@ -67,6 +38,10 @@ export const followAC = (userId) => {
 };
 export const unfollowAC = (userId) => {
   return { type: "UNFOLLOW", userId };
+};
+
+export const getUsersAC = (users) => {
+  return { type: "GET_USERS", users };
 };
 
 export default usersReducer;
