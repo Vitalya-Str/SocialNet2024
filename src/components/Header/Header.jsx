@@ -1,10 +1,11 @@
 import s from './Header.module.css'
+import logo from '../../images/logo.png'
 
 const Header = () => {
 
     return (
         <div className={s.header}>
-            <img src="https://www.citypng.com/public/uploads/preview/punisher-black-skull-star-sticker-hd-transparent-png-735811696670796g8jd3b4fbs.png" alt="logo" />
+            <img src= {logo} alt="logo" />
         </div>
     )
 }
