@@ -27,8 +27,9 @@ const usersReducer = (state = initialState, action) => {
         return u;
       }),
     };
-  } else if (action.type === GET_USERS) { /* {...state, users: [...state.users, ...action.users]} */
-    return { ...state, users: [...action.users] };
+  } else if (action.type === GET_USERS) {
+    /* {...state, users: [...state.users, ...action.users]} */
+    return { ...state, users: [...action.users]  };
   }
   return state;
 };

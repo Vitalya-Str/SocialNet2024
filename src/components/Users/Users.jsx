@@ -1,56 +1,26 @@
 import s from "./Users.module.css";
+import axios from "axios";
+import profilePhoto from "../../images/profilePhoto.png";
 
 const Users = (props) => {
-  const stateCopy = [
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 1,
-      following: true,
-      fullname: "Vitalya S",
-      status: "status",
-      location: { country: "Kazakhstan", city: "Petrope" },
-    },
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 2,
-      following: false,
-      fullname: "Julia S",
-      status: "status!!!",
-      location: { country: "Kazakhstan", city: "Astana" },
-    },
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 3,
-      following: false,
-      fullname: "Artem S",
-      status: "status....",
-      location: { country: "Russia", city: "Moscow" },
-    },
-    {
-      images: "https://cs10.pikabu.ru/post_img/big/2020/05/18/8/1589804231127867240.jpg",
-      id: 4,
-      following: true,
-      fullname: "Alice S",
-      status: "@@@@@@@",
-      location: { country: "Belarus", city: "Minsk" },
-    },
-  ];
   if (props.users.length === 0) {
-    props.getUsers(stateCopy);
+    axios.get("https://social-network.samuraijs.com/api/1.0/users").then((Response) => {
+      props.getUsers(Response.data.items);
+    });
   }
-
   return (
     <div>
       {props.users.map((u) => (
         <div key={u.id}>
           <div>
             <div>
-              <img className={s.ava} src={u.images} alt="ava" />
+              <img className={s.ava} src={u.photos.small ? u.photos.small : profilePhoto} alt="ava" />
             </div>
             <div>
-              {u.following === true ? (
+              {u.followed === true ? (
                 <button
                   onClick={() => {
+                    
                     props.unfollowAC(u.id);
                   }}
                 >
@@ -69,12 +39,12 @@ const Users = (props) => {
           </div>
           <div>
             <div>
-              <div> {u.fullname} </div>
+              <div> {u.name} </div>
               <div>{u.status}</div>
             </div>
             <div>
-              <div>{u.location.country}</div>
-              <div>{u.location.city}</div>
+              <div>{"u.location.country"}</div>
+              <div>{"u.location.city"}</div>
             </div>
           </div>
         </div>
