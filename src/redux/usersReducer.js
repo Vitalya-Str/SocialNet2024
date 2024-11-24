@@ -1,9 +1,14 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const GET_USERS = "GET_USERS";
+const TOTAL_COUNT = "TOTAL_COUNT";
+const CURRENT_PAGE = "CURRENT_PAGE";
 
 const initialState = {
   users: [],
+  count: 10,
+  currentPage: 1,
+  totalCount: 0,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -28,21 +33,33 @@ const usersReducer = (state = initialState, action) => {
       }),
     };
   } else if (action.type === GET_USERS) {
-    /* {...state, users: [...state.users, ...action.users]} */
-    return { ...state, users: [...action.users]  };
+    return { ...state, users: action.users };
+  } else if (action.type === TOTAL_COUNT) {
+    return { ...state, totalCount: action.totalCount };
+  } else if (action.type === CURRENT_PAGE) {
+    return { ...state, currentPage: action.page };
   }
   return state;
 };
 
 export const followAC = (userId) => {
-  return { type: "FOLLOW", userId };
+  return { type: FOLLOW, userId };
 };
+
 export const unfollowAC = (userId) => {
-  return { type: "UNFOLLOW", userId };
+  return { type: UNFOLLOW, userId };
 };
 
 export const getUsersAC = (users) => {
-  return { type: "GET_USERS", users };
+  return { type: GET_USERS, users };
+};
+
+export const totalCountAC = (totalCount) => {
+  return { type: TOTAL_COUNT, totalCount };
+};
+
+export const currentPageAC = (page) => {
+  return { type: CURRENT_PAGE, page };
 };
 
 export default usersReducer;
