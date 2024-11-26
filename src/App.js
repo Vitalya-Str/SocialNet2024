@@ -5,7 +5,7 @@ import Profile from "./components/Profile/Profile";
 import { Routes, Route } from "react-router-dom";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { SideBarContainer } from "./components/SideBar/SideBarContaier";
-import { UsersContainer } from "./components/Users/UsersContiner";
+import  UsersContainer  from "./components/Users/UsersContainer";
 
 const App = (props) => {
   return (

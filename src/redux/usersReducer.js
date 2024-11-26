@@ -3,12 +3,14 @@ const UNFOLLOW = "UNFOLLOW";
 const GET_USERS = "GET_USERS";
 const TOTAL_COUNT = "TOTAL_COUNT";
 const CURRENT_PAGE = "CURRENT_PAGE";
+const SET_ISFETCHING = "SET_ISFETCHING";
 
 const initialState = {
   users: [],
   count: 10,
   currentPage: 1,
   totalCount: 0,
+  isFetching: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -38,7 +40,9 @@ const usersReducer = (state = initialState, action) => {
     return { ...state, totalCount: action.totalCount };
   } else if (action.type === CURRENT_PAGE) {
     return { ...state, currentPage: action.page };
-  }
+  }else if (action.type === SET_ISFETCHING){
+    return {...state, isFetching: action.fetching}
+  } 
   return state;
 };
 
@@ -60,6 +64,9 @@ export const totalCountAC = (totalCount) => {
 
 export const currentPageAC = (page) => {
   return { type: CURRENT_PAGE, page };
+};
+export const isFetchingAC = (fetching) => {
+  return { type: SET_ISFETCHING, fetching };
 };
 
 export default usersReducer;
