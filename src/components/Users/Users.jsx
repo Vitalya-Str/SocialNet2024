@@ -3,20 +3,22 @@ import axios from "axios";
 import profilePhoto from "../../images/user.png";
 import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
+import { NavLink } from "react-router-dom";
 
 class Users extends React.Component {
   componentDidMount() {
     this.props.isFetchingAC(true);
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.count}`).then((Response) => {
-      this.props.getUsers(Response.data.items);
+      this.props.getUsersAC(Response.data.items);
       this.props.totalCountAC(Response.data.totalCount);
       this.props.isFetchingAC(false);
     });
+    this.props.currentPageAC(1);
   }
   pageNumber = (p) => {
     this.props.isFetchingAC(true);
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.count}`).then((Response) => {
-      this.props.getUsers(Response.data.items);
+      this.props.getUsersAC(Response.data.items);
       this.props.isFetchingAC(false);
     });
     this.props.currentPageAC(p);
@@ -50,7 +52,9 @@ class Users extends React.Component {
             <div key={u.id}>
               <div>
                 <div>
-                  <img className={s.ava} src={u.photos.small ? u.photos.small : profilePhoto} alt="ava" />
+                  <NavLink to={"/profile/" + u.id}>
+                    <img className={s.ava} src={u.photos.small ? u.photos.small : profilePhoto} alt="ava" />
+                  </NavLink>
                 </div>
                 <div>
                   {u.followed === true ? (
