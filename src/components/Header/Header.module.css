@@ -1,8 +1,12 @@
 .header {
-    grid-area: h;
-    background-color: darkgoldenrod;
+  grid-area: h;
+  background-color: darkgoldenrod;
 }
 
 .header img {
-    height: 50px;
+  height: 50px;
+}
+
+.link {
+  float: right;
 }

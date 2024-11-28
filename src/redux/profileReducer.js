@@ -24,13 +24,9 @@ const profileReducer = (state = initialState, action) => {
   return state;
 };
 
-export const addPostAC = () => {
-  return { type: ADD_POST };
-};
+export const addPostAC = () => ({ type: ADD_POST });
 
-export const addNewPostAC = (text) => {
-  return { type: ADD_NEW_POST_TEXT, text };
-};
+export const addNewPostAC = (text) => ({ type: ADD_NEW_POST_TEXT, text });
 
 export const setUserProfileAC = (user) => ({ type: SET_USER_PROFILE, user });
 
