@@ -9,10 +9,10 @@ export const usersAPI = {
     return instance.get(`users?page=${currentPage}&count=${count}`).then((response) => response.data);
   },
   followedApi(userId) {
-    return instance.post(`follow/${userId}`, {}, { withCredentials: true }).then((response) => response.data);
+    return instance.post(`follow/${userId}`).then((response) => response.data);
   },
   unfollowedApi(userId) {
-    return instance.delete(`follow/${userId}`, { withCredentials: true }).then((response) => response.data);
+    return instance.delete(`follow/${userId}`).then((response) => response.data);
   },
 };
 

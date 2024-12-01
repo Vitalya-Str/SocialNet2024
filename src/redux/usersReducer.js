@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const GET_USERS = "GET_USERS";
@@ -80,5 +82,41 @@ export const isFetchingAC = (fetching) => {
 };
 
 export const followingInProgressAC = (isFetching, userId) => ({ type: FOLLOWING_INPROGRESS, isFetching, userId });
+
+export const getUsers = (currentPage, count) => {
+  return (dispatch) => {
+    dispatch(isFetchingAC(true));
+    usersAPI.getUsers(currentPage, count).then((data) => {
+      dispatch(getUsersAC(data.items));
+      dispatch(totalCountAC(data.totalCount));
+      dispatch(isFetchingAC(false));
+    });
+    dispatch(currentPageAC(1));
+  };
+};
+
+export const followUser = (id) => {
+  return (dispatch) => {
+    usersAPI.followedApi(id).then((data) => {
+      dispatch(followingInProgressAC(true, id));
+      if (data.resultCode === 0) {
+        return dispatch(followAC(id));
+      }
+      dispatch(followingInProgressAC(false, id));
+    });
+  };
+};
+
+export const unfollowUser = (id) => {
+  return (dispatch) => {
+    usersAPI.followedApi(id).then((data) => {
+      dispatch(followingInProgressAC(true, id));
+      if (data.resultCode === 0) {
+        return dispatch(unfollowAC(id));
+      }
+      dispatch(followingInProgressAC(false, id));
+    });
+  };
+};
 
 export default usersReducer;

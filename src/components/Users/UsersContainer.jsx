@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Users from "./Users";
-import { currentPageAC, followAC, followingInProgressAC, getUsersAC, isFetchingAC, totalCountAC, unfollowAC } from "../../redux/usersReducer";
+import { followUser, getUsers, unfollowUser } from "../../redux/usersReducer";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,6 +13,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { followAC, unfollowAC, getUsersAC, totalCountAC, currentPageAC, isFetchingAC, followingInProgressAC })(
-  Users
-);
+export default connect(mapStateToProps, {
+  followUser,
+  unfollowUser,
+  getUsers,
+})(Users);
