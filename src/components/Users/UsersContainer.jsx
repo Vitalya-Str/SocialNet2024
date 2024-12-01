@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Users from "./Users";
 import { followUser, getUsers, unfollowUser } from "../../redux/usersReducer";
+import { compose } from "redux";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,8 +14,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  followUser,
-  unfollowUser,
-  getUsers,
-})(Users);
+export default compose(
+  connect(mapStateToProps, {
+    followUser,
+    unfollowUser,
+    getUsers,
+  })
+)(Users);

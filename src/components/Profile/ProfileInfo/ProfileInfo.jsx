@@ -1,5 +1,5 @@
 import Preloader from "../../../common/Preloader/Preloader";
-import s from "./ProfileInfo.module.css";
+import ProfileStatus from "./ProfileStatus";
 
 
 const ProfileInfo = (props) => {
@@ -9,14 +9,11 @@ const ProfileInfo = (props) => {
 
   return (
     <div>
-      <div>
-        <img
-          className={s.images}
-          src="https://img1.akspic.ru/previews/5/3/0/9/7/179035/179035-voda-gora-gidroresursy-rastenie-oblako-500x.jpg"
-          alt="img"
-        />
-      </div>
       <div>  { props.profile.photos.large ? <div><img src={props.profile.photos.large} alt="" />  </div> : null}
+
+      <div>
+        <ProfileStatus status='status!!!'/>
+      </div>
         
         <div>
           {props.profile.aboutMe ? (
