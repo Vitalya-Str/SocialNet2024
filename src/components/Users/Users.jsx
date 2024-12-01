@@ -1,28 +1,51 @@
 import s from "./Users.module.css";
-import axios from "axios";
 import profilePhoto from "../../images/user.png";
 import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import { NavLink } from "react-router-dom";
+import { usersAPI } from "../../api/api";
+import { followingInProgressAC } from "../../redux/usersReducer";
 
 class Users extends React.Component {
   componentDidMount() {
     this.props.isFetchingAC(true);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.count}`).then((Response) => {
-      this.props.getUsersAC(Response.data.items);
-      this.props.totalCountAC(Response.data.totalCount);
+
+    usersAPI.getUsers(this.props.currentPage, this.props.count).then((data) => {
+      this.props.getUsersAC(data.items);
+      this.props.totalCountAC(data.totalCount);
       this.props.isFetchingAC(false);
     });
     this.props.currentPageAC(1);
   }
   pageNumber = (p) => {
     this.props.isFetchingAC(true);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.count}`).then((Response) => {
-      this.props.getUsersAC(Response.data.items);
+    usersAPI.getUsers(p, this.props.count).then((data) => {
+      this.props.getUsersAC(data.items);
       this.props.isFetchingAC(false);
     });
     this.props.currentPageAC(p);
   };
+
+  followUser(id) {
+    usersAPI.followedApi(id).then((data) => {
+      this.props.followingInProgressAC(true, id);
+      if (data.resultCode === 0) {
+        return this.props.followAC(id);
+      }
+      this.props.followingInProgressAC(false, id);
+    });
+  }
+
+  unfollowUser(id) {
+    this.props.followingInProgressAC(true, id);
+    usersAPI.unfollowedApi(id).then((data) => {
+      if (data.resultCode === 0) {
+        return this.props.unfollowAC(id);
+      }
+    });
+
+    this.props.followingInProgressAC(false, id);
+  }
 
   render() {
     const pagesCount = Math.ceil(this.props.totalCount / this.props.count);
@@ -59,16 +82,18 @@ class Users extends React.Component {
                 <div>
                   {u.followed === true ? (
                     <button
+                      disabled={this.props.followingInProgress.some((id) => id === u.id)}
                       onClick={() => {
-                        this.props.unfollowAC(u.id);
+                        this.unfollowUser(u.id);
                       }}
                     >
                       Unfollow
                     </button>
                   ) : (
                     <button
+                      disabled={this.props.followingInProgress.some((id) => id === u.id)}
                       onClick={() => {
-                        this.props.followAC(u.id);
+                        this.followUser(u.id);
                       }}
                     >
                       Follow

@@ -9,7 +9,6 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   if (action.type === SET_USER_DATA) {
-    debugger;
     return {
       ...state,
       ...action.data,

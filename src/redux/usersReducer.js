@@ -4,6 +4,7 @@ const GET_USERS = "GET_USERS";
 const TOTAL_COUNT = "TOTAL_COUNT";
 const CURRENT_PAGE = "CURRENT_PAGE";
 const SET_ISFETCHING = "SET_ISFETCHING";
+const FOLLOWING_INPROGRESS = "FOLLOWING_INPROGRESS";
 
 const initialState = {
   users: [],
@@ -11,6 +12,7 @@ const initialState = {
   currentPage: 1,
   totalCount: 0,
   isFetching: false,
+  followingInProgress: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -40,9 +42,17 @@ const usersReducer = (state = initialState, action) => {
     return { ...state, totalCount: action.totalCount };
   } else if (action.type === CURRENT_PAGE) {
     return { ...state, currentPage: action.page };
-  }else if (action.type === SET_ISFETCHING){
-    return {...state, isFetching: action.fetching}
-  } 
+  } else if (action.type === SET_ISFETCHING) {
+    return { ...state, isFetching: action.fetching };
+  } else if (action.type === FOLLOWING_INPROGRESS) {
+    return {
+      ...state,
+      followingInProgress: action.isFetching
+        ? [...state.followingInProgress, action.userId]
+        : state.followingInProgress.filter((u) => u != action.userId),
+    };
+  }
+
   return state;
 };
 
@@ -68,5 +78,7 @@ export const currentPageAC = (page) => {
 export const isFetchingAC = (fetching) => {
   return { type: SET_ISFETCHING, fetching };
 };
+
+export const followingInProgressAC = (isFetching, userId) => ({ type: FOLLOWING_INPROGRESS, isFetching, userId });
 
 export default usersReducer;
