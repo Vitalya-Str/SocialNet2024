@@ -9,12 +9,16 @@ const ProfileInfo = (props) => {
 
   return (
     <div>
-      <div>  { props.profile.photos.large ? <div><img src={props.profile.photos.large} alt="" />  </div> : null}
-
       <div>
-        <ProfileStatus status='status!!!'/>
-      </div>
-        
+        {" "}
+        {props.profile.photos.large ? (
+          <div>
+            <img src={props.profile.photos.large} alt="" />{" "}
+          </div>
+        ) : null}
+        <div>
+          <ProfileStatus status={props.status} updateProfileStatus={props.updateProfileStatus} />
+        </div>
         <div>
           {props.profile.aboutMe ? (
             <div>
