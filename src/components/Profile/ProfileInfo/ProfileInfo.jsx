@@ -1,7 +1,6 @@
 import Preloader from "../../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 
-
 const ProfileInfo = (props) => {
   if (!props.profile) {
     return <Preloader />;
@@ -10,10 +9,9 @@ const ProfileInfo = (props) => {
   return (
     <div>
       <div>
-        {" "}
         {props.profile.photos.large ? (
           <div>
-            <img src={props.profile.photos.large} alt="" />{" "}
+            <img src={props.profile.photos.large} alt="" />
           </div>
         ) : null}
         <div>

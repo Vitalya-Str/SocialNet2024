@@ -8,5 +8,17 @@
 }
 
 .link {
+  display: flex;
+  padding-top: 10px;
   float: right;
+  padding-right: 50px;
+}
+
+.link a {
+  color: black;
+  text-decoration: none;
+}
+
+.btn {
+  margin-left: 10px;
 }

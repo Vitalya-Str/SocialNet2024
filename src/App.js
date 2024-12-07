@@ -6,7 +6,8 @@ import { SideBarContainer } from "./components/SideBar/SideBarContaier";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
+import LoginPage from "./components/LoginPage/LoginPage";
+
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
           <Route path="/profile/:userId?" element={<ProfileContainer />} exact />
           <Route path="/dialogs" element={<DialogsContainer />} exact />
           <Route path="/users" element={<UsersContainer />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
     </div>
