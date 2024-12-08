@@ -1,5 +1,7 @@
 import Preloader from "../../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import avatar from "../../../images/user.png";
+import s from './ProfileInfo.module.css'
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -13,7 +15,11 @@ const ProfileInfo = (props) => {
           <div>
             <img src={props.profile.photos.large} alt="" />
           </div>
-        ) : null}
+        ) : (
+          <div >
+            <img className={s.avatar} src={avatar} alt="avatar" />
+          </div>
+        )}
         <div>
           <ProfileStatus status={props.status} updateProfileStatus={props.updateProfileStatus} />
         </div>
