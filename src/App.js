@@ -14,7 +14,7 @@ import Preloader from "./common/Preloader/Preloader";
 const App = ({ autorizedTh, autorized }) => {
   useEffect(() => {
     autorizedTh();
-  }, []);
+  });
 
   if (!autorized) {
     return <Preloader/>

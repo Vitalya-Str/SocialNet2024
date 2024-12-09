@@ -1,13 +1,13 @@
 import { authMe } from "./authReducer";
 
-const SET_UTORIZED = "SET_UTORIZED";
+const SET_AUTORIZED = "SET_AUTORIZED";
 
 const initialState = {
   autorized: false,
 };
 
 const appReducer = (state = initialState, action) => {
-  if (action.type === SET_UTORIZED) {
+  if (action.type === SET_AUTORIZED) {
     return {
       ...state,
       autorized: true,
@@ -17,7 +17,7 @@ const appReducer = (state = initialState, action) => {
   return state;
 };
 
-export const setAutorizedSucces = () => ({ type: SET_UTORIZED });
+export const setAutorizedSucces = () => ({ type: SET_AUTORIZED });
 
 export const autorizedTh = () => (dispatch) => {
   let promise = dispatch(authMe());
