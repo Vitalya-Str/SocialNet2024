@@ -13,21 +13,20 @@ class Users extends React.Component {
         return (
             <>
                 <div>
-                    {this.props.isFetching ? <Preloader/> :
-                        <div className={s.container}>
-                            <div>
-                                <Paginator totalCount={this.props.totalCount} count={this.props.count}
-                                           getUsers={this.props.getUsers} currentPage={this.props.currentPage}/>
-                            </div>
-                            <div>
-                                {this.props.users.map(user => <User key={user.id} user={user}
-                                                                    followingInProgress={this.props.followingInProgress}
-                                                                    unfollowUser={this.props.unfollowUser}
-                                                                    followUser={this.props.followUser}/>)
-                                }
-                            < /div>
+                    {this.props.isFetching ? <Preloader/> : null}
+                    <div className={s.container}>
+                        <div>
+                            <Paginator totalCount={this.props.totalCount} count={this.props.count}
+                                       getUsers={this.props.getUsers} currentPage={this.props.currentPage}/>
                         </div>
-                    }
+                        <div>
+                            {this.props.users.map(user => <User key={user.id} user={user}
+                                                                followingInProgress={this.props.followingInProgress}
+                                                                unfollowUser={this.props.unfollowUser}
+                                                                followUser={this.props.followUser}/>)
+                            }
+                        < /div>
+                    </div>
                 </div>
 
 
