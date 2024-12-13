@@ -11,7 +11,7 @@
 .button15 {
   display: inline-block;
   font-family: arial,sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
   color: rgb(68,68,68);
   text-decoration: none;
@@ -22,7 +22,6 @@
   border-radius: 2px;
   background: rgb(245,245,245) linear-gradient(#f4f4f4, #f1f1f1);
   transition: all .218s ease 0s;
-  margin: 0 10px 10px 10px;
 }
 .button15:hover {
   color: rgb(24,24,24);
