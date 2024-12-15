@@ -3,9 +3,9 @@ import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
 import sideBarReducer from "./sideBarReducer";
 import usersReducer from "./usersReducer";
-import authReducer from "./authReducer";
 import {thunk} from "redux-thunk";
-import appReducer from "./appReducer ";
+import appReducer from "./appReducer";
+import authReducer from "./authReducer";
 
 const redusers = combineReducers({
   profilePage: profileReducer,

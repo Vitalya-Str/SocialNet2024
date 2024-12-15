@@ -149,8 +149,7 @@ const ProfileData = ({profile, isOwner, setEditMode}) => {
 }
 
 const Contacts = ({contactTitle, contactValue}) => {
-    return <div className={s.contacts}>
-        <b>{contactTitle}:</b> {contactValue}
+    return <div className={s.contacts}> {contactValue ? <div><b>{contactTitle}:</b> {contactValue}</div>  : null}
     </div>
 
 

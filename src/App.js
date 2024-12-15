@@ -8,8 +8,8 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/LoginPage/LoginPage";
 import { connect } from "react-redux";
-import { autorizedTh } from "./redux/appReducer ";
 import Preloader from "./common/Preloader/Preloader";
+import {autorizedTh} from "./redux/appReducer";
 
 const App = ({ autorizedTh, autorized }) => {
   useEffect(() => {
