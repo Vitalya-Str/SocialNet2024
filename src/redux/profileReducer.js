@@ -1,4 +1,5 @@
 import {profileAPI} from "../api/api";
+import user from "../components/Users/User";
 
 const ADD_POST = "ADD_POST";
 const ADD_NEW_POST_TEXT = "ADD_NEW_POST_TEXT";
@@ -71,6 +72,14 @@ export const savePhoto = (file) => {
             dispatch(savePhotoAC(data.data.photos));
         }
     };
+}
+export const saveProfile = (profile) => (dispatch, getState) =>{
+    const userId = getState().auth.id
+    return profileAPI.saveProfileContacts(profile).then(data=> {
+        if (data.resultCode === 0){
+            dispatch(profileThunk(userId))
+        }
+    })
 }
 
 export default profileReducer;
