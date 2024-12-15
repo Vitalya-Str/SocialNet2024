@@ -63,7 +63,6 @@ const ProfileDataForm = ({profile, saveProfileContacts}) => {
                     contacts: profile.contacts
                 }}
                 onSubmit={(values) => {
-
                     saveProfileContacts(values)
                 }}>
                 {({
