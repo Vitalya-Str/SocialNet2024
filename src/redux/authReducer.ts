@@ -1,25 +1,20 @@
 import {authAPI, securityAPI} from "../api/api";
-import {string} from "yup";
 
 const SET_USER_DATA = "SET_USER_DATA";
 const SET_CAPTCHA_URL = '/authReducer/SET_CAPTCHA_URL'
 
-export type initialStateType = {
-    email: string | null,
-    id: number | null,
-    login: string | null,
-    isAuth: boolean,
-    captchaUrl: string | null
-}
-const initialState: initialStateType = {
-    email: null,
-    id: null,
-    login: null,
+
+const initialState = {
+    email: null as string | null,
+    id: null as number | null,
+    login: null as string | null,
     isAuth: false,
-    captchaUrl: null
+    captchaUrl: null as string | null
 };
 
-const authReducer = (state = initialState, action: any): initialStateType => {
+export type InitialStateType = typeof initialState
+
+const authReducer = (state = initialState, action: any):InitialStateType  => {
     if (action.type === SET_USER_DATA) {
         return {
             ...state, ...action.data,
