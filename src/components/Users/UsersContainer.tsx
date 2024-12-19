@@ -10,8 +10,23 @@ import {
     getTotalCount,
     usersReselect
 } from "../../redux/usersReselect";
+import {StateReducerType} from "../../redux/store-redux";
+import {UserType} from "../../type/type";
 
-const mapStateToProps = (state) => {
+type MapDispatchType = {
+    followUser: (userId: number) => void
+    unfollowUser: (userId: number) => void
+    getUsers: (currentPage: number, count: number) => void
+}
+type MapStateProps = {
+    users: UserType[]
+    count: number
+    totalCount:number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: any
+}
+const mapStateToProps = (state: StateReducerType):MapStateProps => {
     return {
         users: usersReselect(state),
         count: getCount(state),
@@ -22,8 +37,9 @@ const mapStateToProps = (state) => {
     };
 };
 
+//TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
 export default compose(
-    connect(mapStateToProps, {
+    connect<MapStateProps,MapDispatchType,any,StateReducerType>(mapStateToProps, {
         followUser,
         unfollowUser,
         getUsers,

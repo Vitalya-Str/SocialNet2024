@@ -3,8 +3,24 @@ import s from "./Users.module.css"
 import Preloader from "../../common/Preloader/Preloader";
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
+import {UserType} from "../../type/type";
 
-class Users extends React.Component {
+type PropsType = {
+    currentPage: number
+    count: number
+    totalCount: number
+    isFetching: boolean
+    users: UserType[]
+
+
+    getUsers: (currentPage: number, count: number)=>void
+    followingInProgress: number[]
+    unfollowUser: (userId: number) => void
+    followUser: (userId: number) => void
+
+}
+
+class Users extends React.Component<PropsType, any> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.count);
     }
@@ -25,7 +41,7 @@ class Users extends React.Component {
                                                                 unfollowUser={this.props.unfollowUser}
                                                                 followUser={this.props.followUser}/>)
                             }
-                        < /div>
+                        </div>
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@ import {thunk} from "redux-thunk";
 import appReducer from "./appReducer";
 import authReducer from "./authReducer";
 
-const redusers = combineReducers({
+const reducers = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sideBar: sideBarReducer,
@@ -16,6 +16,9 @@ const redusers = combineReducers({
   app: appReducer
 });
 
-const store = createStore(redusers, applyMiddleware(thunk));
+const store = createStore(reducers, applyMiddleware(thunk));
+
+type AppReducerType = typeof reducers
+export type StateReducerType = ReturnType<AppReducerType>
 
 export default store;
