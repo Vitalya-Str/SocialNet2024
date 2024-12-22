@@ -1,13 +1,27 @@
-import React from "react";
+import React, {FC} from "react";
 import s from "../Form/CustomForm.module.css";
-import {Formik, Form, Field, ErrorMessage} from "formik";
+import {Formik, Form, Field, ErrorMessage, FormikErrors} from "formik";
+import {loginType} from "../../../redux/authReducer";
 
-const CustomForm = ({Login, captchaUrl}) => (
-    <div>
+interface InitialValues {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string | null
+}
+
+interface PropsType {
+    Login: (values:loginType) => void
+    captchaUrl: string | null
+}
+const CustomForm:FC<PropsType> = ({Login, captchaUrl}) => {
+    const initialValues:InitialValues = {email: "", password: "", rememberMe: false, captcha: null}
+
+    return <div>
         <Formik
-            initialValues={{email: "", password: "", rememberMe: false, captcha: null}}
+            initialValues={initialValues}
             validate={(values) => {
-                const errors = {};
+                const errors:FormikErrors<InitialValues> = {};
                 if (!values.email) {
                     errors.email = "Required";
                 } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -15,7 +29,7 @@ const CustomForm = ({Login, captchaUrl}) => (
                 }
                 return errors;
             }}
-            onSubmit={(values) => {
+            onSubmit={(values:loginType) => {
                 Login(values);
             }}
         >
@@ -40,6 +54,6 @@ const CustomForm = ({Login, captchaUrl}) => (
             )}
         </Formik>
     </div>
-);
+}
 
 export default CustomForm;

@@ -63,7 +63,7 @@ export type loginType = {
     email: string
     password: string
     rememberMe: boolean
-    captcha: string
+    captcha: string | null
 }
 export const Login = (values:loginType) => {
     const {email, password, rememberMe, captcha} = {...values}
