@@ -6,19 +6,34 @@ import usersReducer from "./usersReducer";
 import {thunk} from "redux-thunk";
 import appReducer from "./appReducer";
 import authReducer from "./authReducer";
+//@ts-ignore
+import { configureStore } from '@reduxjs/toolkit'
 
-const reducers = combineReducers({
-  profilePage: profileReducer,
-  dialogsPage: dialogsReducer,
-  sideBar: sideBarReducer,
-  usersPage: usersReducer,
-  auth: authReducer,
-  app: appReducer
-});
+// const reducers = combineReducers({
+//   profilePage: profileReducer,
+//   dialogsPage: dialogsReducer,
+//   sideBar: sideBarReducer,
+//   usersPage: usersReducer,
+//   auth: authReducer,
+//   app: appReducer
+// });
 
-const store = createStore(reducers, applyMiddleware(thunk));
+export const store = configureStore({
+  reducer: {
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer,
+    sideBar: sideBarReducer,
+    usersPage: usersReducer,
+    auth: authReducer,
+    app: appReducer
+  },
+})
 
-type AppReducerType = typeof reducers
-export type StateReducerType = ReturnType<AppReducerType>
+
+// const store = createStore(reducers, applyMiddleware(thunk));
+
+export type RootState = ReturnType<typeof store.getState>
+// type AppReducerType = typeof store
+// export type StateReducerType = ReturnType<AppReducerType>
 
 export default store;

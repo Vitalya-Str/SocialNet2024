@@ -14,7 +14,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-const authReducer = (state = initialState, action: any):InitialStateType  => {
+const authReducer = (state = initialState, action: ActionType):InitialStateType  => {
     if (action.type === SET_USER_DATA) {
         return {
             ...state, ...action.data,
@@ -27,6 +27,8 @@ const authReducer = (state = initialState, action: any):InitialStateType  => {
     }
     return state;
 };
+type ActionType = setUserDataACType | captchaUrlACType
+
 type DataType = {
     email: string | null
     id: number | null
@@ -57,7 +59,7 @@ export const authMe = () => {
     };
 }
 
-type loginType = {
+export type loginType = {
     email: string
     password: string
     rememberMe: boolean

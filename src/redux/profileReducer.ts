@@ -21,7 +21,7 @@ const initialState = {
 
 type InitianalType = typeof initialState
 
-const profileReducer = (state = initialState, action: any): InitianalType => {
+const profileReducer = (state = initialState, action: ActionType): InitianalType => {
     if (action.type === ADD_POST) {
         const body = state.newPostText;
         return {...state, posts: [...state.posts, {id: 3, post: body, likeCount: 55}], newPostText: ""};
@@ -39,6 +39,8 @@ const profileReducer = (state = initialState, action: any): InitianalType => {
     return state;
 };
 
+type ActionType = addPostACType | addNewPostACType | setProfileStatusACType | updateProfileStatusACType | setUserProfileACType | savePhotoACType
+
 type addPostACType = {
     type: typeof ADD_POST
 }
@@ -54,6 +56,8 @@ type setUserProfileACType = {
     type: typeof SET_USER_PROFILE
     profile: ProfileType
 }
+
+
 export const setUserProfileAC = (profile: ProfileType): setUserProfileACType => ({type: SET_USER_PROFILE, profile});
 
 type setProfileStatusACType = {

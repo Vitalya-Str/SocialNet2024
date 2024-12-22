@@ -26,7 +26,7 @@ const initialState = {
 
 type initialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: any): initialStateType => {
+const dialogsReducer = (state = initialState, action: ActionType): initialStateType => {
     if (action.type === ADD_MESSAGE) {
         const body = state.newMessage;
         return {
@@ -42,6 +42,8 @@ const dialogsReducer = (state = initialState, action: any): initialStateType => 
     }
     return state;
 };
+type ActionType = addNewMessageTextACType | addMessageACType
+
 type addNewMessageTextACType = {
     type: typeof ADD_NEW_MESSAGE_TEXT
     message: string

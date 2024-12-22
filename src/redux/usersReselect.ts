@@ -1,24 +1,24 @@
-import {StateReducerType} from "./store-redux";
+import {RootState} from "./store-redux";
 
-export const usersReselect = (state:StateReducerType) => {
+export const usersReselect = (state:RootState) => {
     return state.usersPage.users
 }
 
-export const getCount = (state:StateReducerType) => {
+export const getCount = (state:RootState) => {
     return state.usersPage.count
 }
 
-export const getTotalCount = (state:StateReducerType) => {
+export const getTotalCount = (state:RootState) => {
     return state.usersPage.totalCount
 }
 
-export const getCurrentPage = (state:StateReducerType) => {
+export const getCurrentPage = (state:RootState) => {
     return state.usersPage.currentPage
 }
 
-export const getIsFetching = (state:StateReducerType) => {
+export const getIsFetching = (state:RootState) => {
     return state.usersPage.isFetching
 }
-export const getFollowingInProgress = (state:StateReducerType) => {
+export const getFollowingInProgress = (state:RootState) => {
     return state.usersPage.followingInProgress
 }

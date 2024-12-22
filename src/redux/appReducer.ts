@@ -9,7 +9,7 @@ const initialState: initialStateType = {
     autorized: false,
 };
 
-const appReducer = (state = initialState, action: any): initialStateType => {
+const appReducer = (state = initialState, action: ActionType): initialStateType => {
     if (action.type === SET_AUTORIZED) {
         return {
             ...state,
@@ -22,6 +22,8 @@ const appReducer = (state = initialState, action: any): initialStateType => {
 type setAutorizedSuccesType = {
     type: typeof SET_AUTORIZED
 }
+
+type  ActionType = setAutorizedSuccesType
 export const setAutorizedSucces = (): setAutorizedSuccesType => ({type: SET_AUTORIZED});
 
 export const autorizedTh = () => (dispatch: any) => {

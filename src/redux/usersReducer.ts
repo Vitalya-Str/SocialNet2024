@@ -2,13 +2,14 @@ import {usersAPI} from "../api/api";
 import { UserType} from "../type/type";
 
 
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const GET_USERS = "GET_USERS";
 const TOTAL_COUNT = "TOTAL_COUNT";
 const CURRENT_PAGE = "CURRENT_PAGE";
-const SET_ISFETCHING = "SET_ISFETCHING";
-const FOLLOWING_INPROGRESS = "FOLLOWING_INPROGRESS";
+const SET_IS_FETCHING = "SET_IS_FETCHING";
+const FOLLOWING_IN_PROGRESS = "FOLLOWING_IN_PROGRESS";
 
 
 const initialState = {
@@ -20,7 +21,7 @@ const initialState = {
     followingInProgress: [] as number[],
 };
 
-type InitianalType = typeof initialState
+type InitialState = typeof initialState
 
 const usersFollow = (users: UserType[], userId: number, actionFollowed: boolean) => {
     return users.map((u) => {
@@ -31,7 +32,9 @@ const usersFollow = (users: UserType[], userId: number, actionFollowed: boolean)
     })
 }
 
-const usersReducer = (state = initialState, action: any): InitianalType => {
+const usersReducer = (state = initialState, action: ActionType): InitialState => {
+
+
     if (action.type === FOLLOW) {
         return {
             ...state,
@@ -48,9 +51,9 @@ const usersReducer = (state = initialState, action: any): InitianalType => {
         return {...state, totalCount: action.totalCount};
     } else if (action.type === CURRENT_PAGE) {
         return {...state, currentPage: action.page};
-    } else if (action.type === SET_ISFETCHING) {
+    } else if (action.type === SET_IS_FETCHING) {
         return {...state, isFetching: action.fetching};
-    } else if (action.type === FOLLOWING_INPROGRESS) {
+    } else if (action.type === FOLLOWING_IN_PROGRESS) {
         return {
             ...state,
             followingInProgress: action.isFetching
@@ -61,6 +64,8 @@ const usersReducer = (state = initialState, action: any): InitianalType => {
 
     return state;
 };
+
+type ActionType = followACType | unfollowACTpe | getUsersACType | totalCountACType | currentPageACType | isFetchingACType | followingInProgressACType
 
 type followACType = {
     type: typeof FOLLOW
@@ -103,26 +108,26 @@ export const currentPageAC = (page: number): currentPageACType => {
 };
 
 type isFetchingACType = {
-    type: typeof SET_ISFETCHING
+    type: typeof SET_IS_FETCHING
     fetching: boolean
 }
 export const isFetchingAC = (fetching: boolean): isFetchingACType => {
-    return {type: SET_ISFETCHING, fetching};
+    return {type: SET_IS_FETCHING, fetching};
 };
 
 type followingInProgressACType = {
-    type: typeof FOLLOWING_INPROGRESS
+    type: typeof FOLLOWING_IN_PROGRESS
     isFetching: boolean
     userId: number
 }
 export const followingInProgressAC = (isFetching: boolean, userId: number): followingInProgressACType => ({
-    type: FOLLOWING_INPROGRESS,
+    type: FOLLOWING_IN_PROGRESS,
     isFetching,
     userId
 });
 
 export const getUsers = (currentPage: number, count: number) => {
-    return async (dispatch: any) => {
+    return async (dispatch:any) => {
         dispatch(isFetchingAC(true));
         const data = await usersAPI.getUsers(currentPage, count)
         dispatch(getUsersAC(data.items));
@@ -148,7 +153,7 @@ export const followUser = (id: number) => {
     return followUnfollowUser(id, usersAPI.followedApi, followAC)
 };
 
-export const unfollowUser = (id: any) => {
+export const unfollowUser = (id: number) => {
     return followUnfollowUser(id, usersAPI.unfollowedApi, unfollowAC)
 };
 
