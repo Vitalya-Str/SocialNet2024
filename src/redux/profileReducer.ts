@@ -1,12 +1,8 @@
 import {profileAPI} from "../api/api";
 import {PhotosType, PostsType, ProfileType} from "../type/type";
+import {InferActionsTypes} from "./store-redux";
 
-const ADD_POST = "ADD_POST";
-const ADD_NEW_POST_TEXT = "ADD_NEW_POST_TEXT";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
-const UPDATE_PROFILE_STATUS = "UPDATE_PROFILE_STATUS";
-const SAVE_PHOTO = "/profileReducer/SAVE_PHOTO";
+
 
 
 const initialState = {
@@ -22,76 +18,47 @@ const initialState = {
 type InitianalType = typeof initialState
 
 const profileReducer = (state = initialState, action: ActionType): InitianalType => {
-    if (action.type === ADD_POST) {
+    if (action.type === 'ADD_POST') {
         const body = state.newPostText;
         return {...state, posts: [...state.posts, {id: 3, post: body, likeCount: 55}], newPostText: ""};
-    } else if (action.type === ADD_NEW_POST_TEXT) {
+    } else if (action.type === 'ADD_NEW_POST_TEXT') {
         return {...state, newPostText: action.text};
-    } else if (action.type === SET_USER_PROFILE) {
+    } else if (action.type === 'SET_USER_PROFILE') {
         return {...state, profile: action.profile};
-    } else if (action.type === SET_PROFILE_STATUS) {
+    } else if (action.type === 'SET_PROFILE_STATUS') {
         return {...state, status: action.status};
-    } else if (action.type === UPDATE_PROFILE_STATUS) {
+    } else if (action.type === 'UPDATE_PROFILE_STATUS') {
         return {...state, status: action.status};
-    } else if (action.type === SAVE_PHOTO) {
+    } else if (action.type === 'SAVE_PHOTO') {
         return {...state, profile: {...state.profile, photos: action.photo} as ProfileType};
     }
     return state;
 };
 
-type ActionType = addPostACType | addNewPostACType | setProfileStatusACType | updateProfileStatusACType | setUserProfileACType | savePhotoACType
+type ActionType = InferActionsTypes<typeof actionAC>
 
-type addPostACType = {
-    type: typeof ADD_POST
+export const actionAC = {
+    addPostAC: () => ({type: 'ADD_POST'} as const),
+    addNewPostAC: (text: string) => ({type: 'ADD_NEW_POST_TEXT', text} as const),
+    setUserProfileAC: (profile: ProfileType) => ({type: 'SET_USER_PROFILE', profile} as const),
+    setProfileStatusAC: (status: string) => ({type: 'SET_PROFILE_STATUS', status} as const),
+    updateProfileStatusAC: (status: string) => ({
+        type: 'UPDATE_PROFILE_STATUS',
+        status
+    } as const),
+    savePhotoAC: (photo: PhotosType) => ({type: 'SAVE_PHOTO', photo} as const),
 }
-export const addPostAC = (): addPostACType => ({type: ADD_POST});
-
-type addNewPostACType = {
-    type: typeof ADD_NEW_POST_TEXT
-    text: string
-}
-export const addNewPostAC = (text: string): addNewPostACType => ({type: ADD_NEW_POST_TEXT, text});
-
-type setUserProfileACType = {
-    type: typeof SET_USER_PROFILE
-    profile: ProfileType
-}
-
-
-export const setUserProfileAC = (profile: ProfileType): setUserProfileACType => ({type: SET_USER_PROFILE, profile});
-
-type setProfileStatusACType = {
-    type: typeof SET_PROFILE_STATUS
-    status: string
-}
-export const setProfileStatusAC = (status: string): setProfileStatusACType => ({type: SET_PROFILE_STATUS, status});
-
-type updateProfileStatusACType = {
-    type: typeof UPDATE_PROFILE_STATUS
-    status: string
-}
-export const updateProfileStatusAC = (status: string): updateProfileStatusACType => ({
-    type: UPDATE_PROFILE_STATUS,
-    status
-});
-
-type savePhotoACType = {
-    type: typeof SAVE_PHOTO
-    photo: PhotosType
-}
-export const savePhotoAC = (photo: PhotosType): savePhotoACType => ({type: SAVE_PHOTO, photo});
-
 export const profileThunk = (userId: number) => {
     return async (dispatch: any) => {
         const data: any = await profileAPI.profileUser(userId)
-        dispatch(setUserProfileAC(data));
+        dispatch(actionAC.setUserProfileAC(data));
     };
 };
 
 export const setProfileStatus = (userId: number) => {
     return async (dispatch: any) => {
         const data: any = await profileAPI.profileStatus(userId)
-        dispatch(setProfileStatusAC(data));
+        dispatch(actionAC.setProfileStatusAC(data));
 
     };
 }
@@ -99,7 +66,7 @@ export const updateProfileStatus = (status: string) => {
     return async (dispatch: any) => {
         const data = await profileAPI.updateStatus(status)
         if (data.resultCode === 0) {
-            dispatch(updateProfileStatusAC(status));
+            dispatch(actionAC.updateProfileStatusAC(status));
         }
     };
 }
@@ -107,7 +74,7 @@ export const savePhoto = (file: any) => {
     return async (dispatch: any) => {
         const data: any = await profileAPI.savePhoto(file)
         if (data.resultCode === 0) {
-            dispatch(savePhotoAC(data.data.photos));
+            dispatch(actionAC.savePhotoAC(data.data.photos));
         }
     };
 }
