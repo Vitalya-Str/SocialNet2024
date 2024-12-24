@@ -7,7 +7,7 @@ import {
     getCurrentPage,
     getFollowingInProgress,
     getIsFetching,
-    getTotalCount,
+    getTotalCount, setSearchTerm,
     usersReselect
 } from "../../redux/usersReselect";
 import {RootState} from "../../redux/store-redux";
@@ -16,7 +16,7 @@ import {UserType} from "../../type/type";
 type MapDispatchType = {
     followUser: (userId: number) => void
     unfollowUser: (userId: number) => void
-    getUsers: (currentPage: number, count: number) => void
+    getUsers: (currentPage: number, count: number, term: string) => void
 }
 type MapStateProps = {
     users: UserType[]
@@ -25,6 +25,7 @@ type MapStateProps = {
     currentPage: number
     isFetching: boolean
     followingInProgress: number[]
+    term: string
 }
 const mapStateToProps = (state: RootState):MapStateProps => {
     return {
@@ -34,6 +35,7 @@ const mapStateToProps = (state: RootState):MapStateProps => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
+        term: setSearchTerm(state)
     };
 };
 

@@ -7,17 +7,19 @@ type MapStateType = {
     count: number
     currentPage: number
     portionSize?: number
+    term: string
 }
 
 type MapDispatchType = {
-    getUsers: (pageNumber: number, count: number) => void
+    getUsers: (pageNumber: number, count: number, term: string) => void
 }
 const Paginator: FC<MapStateType & MapDispatchType> = ({
                                                            totalCount,
                                                            count = 10,
                                                            getUsers,
                                                            currentPage,
-                                                           portionSize = 20
+                                                           portionSize = 20,
+                                                           term
                                                        }) => {
     const pagesCount = Math.ceil(totalCount / count);
 
@@ -26,8 +28,8 @@ const Paginator: FC<MapStateType & MapDispatchType> = ({
         pages.push(i);
     }
 
-    const pageNumber = (p: number, count:number) => {
-        getUsers(p, count);
+    const pageNumber = (p: number, count: number, term: string) => {
+        getUsers(p, count, term);
     };
 
     const portionCount = Math.ceil(pagesCount / portionSize)
@@ -42,7 +44,7 @@ const Paginator: FC<MapStateType & MapDispatchType> = ({
         {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p) => (<span key={p}
                                onClick={() => {
-                                   pageNumber(p, count);
+                                   pageNumber(p, count,term);
                                }}
                                className={currentPage === p ? s.bold : s.pointer}>{p} </span>))}
 

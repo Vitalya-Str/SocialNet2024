@@ -10,6 +10,7 @@ const initialState = {
     totalCount: 0,
     isFetching: false,
     followingInProgress: [] as number[],
+    term: ''
 };
 
 type InitialState = typeof initialState
@@ -44,6 +45,8 @@ const usersReducer = (state = initialState, action: ActionType): InitialState =>
         return {...state, currentPage: action.page};
     } else if (action.type === 'SET_IS_FETCHING') {
         return {...state, isFetching: action.fetching};
+    }else if (action.type === 'SET_SEARCH_TERM') {
+        return {...state, term: action.term};
     } else if (action.type === 'FOLLOWING_IN_PROGRESS') {
         return {
             ...state,
@@ -63,6 +66,7 @@ export const action = {
     unfollowAC: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
     getUsersAC: (users: UserType[]) => ({type: 'GET_USERS', users} as const),
     totalCountAC: (totalCount: number) => ({type: 'TOTAL_COUNT', totalCount} as const),
+    setSearchTermAC: (term: string) => ({type: 'SET_SEARCH_TERM', term} as const),
     currentPageAC: (page: number) => ({type: 'CURRENT_PAGE', page} as const),
     isFetchingAC: (fetching: boolean) => ({type: 'SET_IS_FETCHING', fetching} as const),
     followingInProgressAC: (isFetching: boolean, userId: number) => ({
@@ -71,10 +75,11 @@ export const action = {
         userId
     } as const),
 }
-export const getUsers = (currentPage: number, count: number) => {
+export const getUsers = (currentPage: number, count: number, term: string) => {
     return async (dispatch: any) => {
-        dispatch(action.isFetchingAC(true));
-        const data = await usersAPI.getUsers(currentPage, count)
+        dispatch(action.isFetchingAC(true))
+        dispatch(action.setSearchTermAC(term))
+        const data = await usersAPI.getUsers(currentPage, count, term)
         dispatch(action.getUsersAC(data.items));
         dispatch(action.totalCountAC(data.totalCount));
         dispatch(action.isFetchingAC(false));
