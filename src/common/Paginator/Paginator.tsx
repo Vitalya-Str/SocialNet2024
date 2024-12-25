@@ -11,12 +11,12 @@ type MapStateType = {
 }
 
 type MapDispatchType = {
-    getUsers: (pageNumber: number, count: number, term: string) => void
+    pageNumber: (pageNumber: number, count: number, term: string) => void
 }
 const Paginator: FC<MapStateType & MapDispatchType> = ({
                                                            totalCount,
                                                            count = 10,
-                                                           getUsers,
+                                                           pageNumber,
                                                            currentPage,
                                                            portionSize = 20,
                                                            term
@@ -28,9 +28,7 @@ const Paginator: FC<MapStateType & MapDispatchType> = ({
         pages.push(i);
     }
 
-    const pageNumber = (p: number, count: number, term: string) => {
-        getUsers(p, count, term);
-    };
+
 
     const portionCount = Math.ceil(pagesCount / portionSize)
     const [portionNumber, setPortionNumber] = useState(1)

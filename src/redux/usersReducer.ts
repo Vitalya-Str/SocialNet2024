@@ -59,7 +59,7 @@ const usersReducer = (state = initialState, action: ActionType): InitialState =>
     return state;
 };
 
-type ActionType = InferActionsTypes<typeof action>
+type ActionType = any
 
 export const action = {
     followAC: (userId: number) => ({type: "FOLLOW", userId} as const),

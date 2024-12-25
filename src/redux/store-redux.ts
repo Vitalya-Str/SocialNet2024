@@ -1,9 +1,7 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
 import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
 import sideBarReducer from "./sideBarReducer";
 import usersReducer from "./usersReducer";
-import {thunk} from "redux-thunk";
 import appReducer from "./appReducer";
 import authReducer from "./authReducer";
 //@ts-ignore
@@ -19,6 +17,7 @@ import {configureStore} from '@reduxjs/toolkit'
 // });
 
 export const store = configureStore({
+    //@ts-ignore
     reducer: {
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
@@ -33,6 +32,9 @@ export const store = configureStore({
 // const store = createStore(reducers, applyMiddleware(thunk));
 
 export type RootState = ReturnType<typeof store.getState>
+//export type AppDispatch = typeof store.dispatch
+//export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+
 
 type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
 

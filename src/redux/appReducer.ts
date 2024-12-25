@@ -23,7 +23,7 @@ type setAutorizedSuccesType = {
     type: typeof SET_AUTORIZED
 }
 
-type  ActionType = setAutorizedSuccesType
+type  ActionType = any
 export const setAutorizedSucces = (): setAutorizedSuccesType => ({type: SET_AUTORIZED});
 
 export const autorizedTh = () => (dispatch: any) => {

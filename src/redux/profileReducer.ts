@@ -35,7 +35,7 @@ const profileReducer = (state = initialState, action: ActionType): InitianalType
     return state;
 };
 
-type ActionType = InferActionsTypes<typeof actionAC>
+type ActionType = any
 
 export const actionAC = {
     addPostAC: () => ({type: 'ADD_POST'} as const),
@@ -46,7 +46,7 @@ export const actionAC = {
         type: 'UPDATE_PROFILE_STATUS',
         status
     } as const),
-    savePhotoAC: (photo: PhotosType) => ({type: 'SAVE_PHOTO', photo} as const),
+    savePhotoAC: (photo: any) => ({type: 'SAVE_PHOTO', photo} as const),
 }
 export const profileThunk = (userId: number) => {
     return async (dispatch: any) => {

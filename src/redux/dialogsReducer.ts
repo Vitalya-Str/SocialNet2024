@@ -42,7 +42,7 @@ const dialogsReducer = (state = initialState, action: ActionType): initialStateT
     }
     return state;
 };
-type ActionType = addNewMessageTextACType | addMessageACType
+type ActionType = any
 
 type addNewMessageTextACType = {
     type: typeof ADD_NEW_MESSAGE_TEXT

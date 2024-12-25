@@ -1,65 +1,83 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import s from "./Users.module.css"
 import Preloader from "../../common/Preloader/Preloader";
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User";
-import {UserType} from "../../type/type";
 import {Field, Form, Formik} from "formik";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCount,
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getTotalCount,
+    setSearchTerm,
+    usersReselect
+} from "../../redux/usersReselect";
+import {getUsers} from "../../redux/usersReducer";
 
-type PropsType = {
-    currentPage: number
-    count: number
-    totalCount: number
-    isFetching: boolean
-    users: UserType[]
-    term: string
+
+export const Users = () => {
+    const users = useSelector(usersReselect)
+    const count = useSelector(getCount)
+    const totalCount = useSelector(getTotalCount)
+    const currentPage = useSelector(getCurrentPage)
+    const isFetching = useSelector(getIsFetching)
+    const followingInProgress = useSelector(getFollowingInProgress)
+    const term = useSelector(setSearchTerm)
+
+    const dispatch :any = useDispatch()
 
 
-    getUsers: (currentPage: number, count: number, term: string) => void
-    followingInProgress: number[]
-    unfollowUser: (userId: number) => void
-    followUser: (userId: number) => void
+    useEffect(() => {
+        dispatch(getUsers(currentPage, count, term))
+    }, [])
 
-}
-
-class Users extends React.Component<PropsType, any> {
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.count, this.props.term );
+    const searchForm = (term: string) => {
+        dispatch( getUsers(1, count, term))
     }
 
-    searchForm = (term:string) => {
-    this.props.getUsers(1, this.props.count,term)
+    const pageNumber = (p: number, count: number, term: string) => {
+        dispatch( getUsers(p, count, term))
+    };
+
+    const unfollowUser = (userId:number) => {
+        dispatch(unfollowUser(userId))
+    }
+    const followUser = (userId:number) => {
+        dispatch(followUser(userId))
     }
 
-    render() {
-        return (
-            <>
-                <div>
-                    {this.props.isFetching ? <Preloader/> : null}
+    return (
+        <>
+            <div>
+                {isFetching ? <Preloader/> : null}
 
-                    <div className={s.container}>
-                        <div className={s.searchForm}><SearchFormik searchForm={this.searchForm} /></div>
-                        <div>
-                            <Paginator term={this.props.term} totalCount={this.props.totalCount} count={this.props.count}
-                                       getUsers={this.props.getUsers} currentPage={this.props.currentPage}/>
-                        </div>
-                        <div>
-                            {this.props.users.map(user => <User key={user.id} user={user}
-                                                                followingInProgress={this.props.followingInProgress}
-                                                                unfollowUser={this.props.unfollowUser}
-                                                                followUser={this.props.followUser}/>)
-                            }
-                        </div>
+                <div className={s.container}>
+                    <div className={s.searchForm}><SearchFormik searchForm={searchForm}/></div>
+                    <div>
+                        <Paginator term={term} totalCount={totalCount} count={count}
+                                   pageNumber={pageNumber} currentPage={currentPage}/>
+                    </div>
+                    <div>
+                        {users.map(user => <User key={user.id} user={user}
+                                                 followingInProgress={followingInProgress}
+                                                 unfollowUser={unfollowUser}
+                                                 followUser={followUser}/>)
+                        }
                     </div>
                 </div>
+            </div>
 
 
-            </>
-        )
-    }
+        </>
+    )
 }
+
+
+
 type SearchPropsType = {
-    searchForm: (term:string) => void
+    searchForm: (term: string) => void
 }
 const SearchFormik: FC<SearchPropsType> = ({searchForm}) => {
     return <div>
@@ -82,6 +100,5 @@ const SearchFormik: FC<SearchPropsType> = ({searchForm}) => {
     </div>
 }
 
-export default Users
 
 

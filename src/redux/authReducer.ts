@@ -27,7 +27,7 @@ const authReducer = (state = initialState, action: ActionType):InitialStateType 
     }
     return state;
 };
-type ActionType = setUserDataACType | captchaUrlACType
+type ActionType = any
 
 type DataType = {
     email: string | null
