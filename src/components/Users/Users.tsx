@@ -14,7 +14,7 @@ import {
     setSearchTerm,
     usersReselect
 } from "../../redux/usersReselect";
-import {getUsers} from "../../redux/usersReducer";
+import {followUser, getUsers, unfollowUser} from "../../redux/usersReducer";
 
 
 export const Users = () => {
@@ -41,10 +41,10 @@ export const Users = () => {
         dispatch( getUsers(p, count, term))
     };
 
-    const unfollowUser = (userId:number) => {
+    const setUnfollowUser = (userId:number) => {
         dispatch(unfollowUser(userId))
     }
-    const followUser = (userId:number) => {
+    const setFollowUser = (userId:number) => {
         dispatch(followUser(userId))
     }
 
@@ -62,8 +62,8 @@ export const Users = () => {
                     <div>
                         {users.map(user => <User key={user.id} user={user}
                                                  followingInProgress={followingInProgress}
-                                                 unfollowUser={unfollowUser}
-                                                 followUser={followUser}/>)
+                                                 setUnfollowUser={setUnfollowUser}
+                                                 setFollowUser={setFollowUser}/>)
                         }
                     </div>
                 </div>
