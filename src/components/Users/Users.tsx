@@ -26,25 +26,26 @@ export const Users = () => {
     const followingInProgress = useSelector(getFollowingInProgress)
     const term = useSelector(setSearchTerm)
 
-    const dispatch :any = useDispatch()
+    const dispatch: any = useDispatch()
 
 
     useEffect(() => {
         dispatch(getUsers(currentPage, count, term))
     }, [])
 
+
     const searchForm = (term: string) => {
-        dispatch( getUsers(1, count, term))
+        dispatch(getUsers(1, count, term))
     }
 
     const pageNumber = (p: number, count: number, term: string) => {
-        dispatch( getUsers(p, count, term))
+        dispatch(getUsers(p, count, term))
     };
 
-    const setUnfollowUser = (userId:number) => {
+    const setUnfollowUser = (userId: number) => {
         dispatch(unfollowUser(userId))
     }
-    const setFollowUser = (userId:number) => {
+    const setFollowUser = (userId: number) => {
         dispatch(followUser(userId))
     }
 
@@ -73,7 +74,6 @@ export const Users = () => {
         </>
     )
 }
-
 
 
 type SearchPropsType = {

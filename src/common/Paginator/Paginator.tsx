@@ -29,7 +29,6 @@ const Paginator: FC<MapStateType & MapDispatchType> = ({
     }
 
 
-
     const portionCount = Math.ceil(pagesCount / portionSize)
     const [portionNumber, setPortionNumber] = useState(1)
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
@@ -42,7 +41,7 @@ const Paginator: FC<MapStateType & MapDispatchType> = ({
         {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p) => (<span key={p}
                                onClick={() => {
-                                   pageNumber(p, count,term);
+                                   pageNumber(p, count, term);
                                }}
                                className={currentPage === p ? s.bold : s.pointer}>{p} </span>))}
 
