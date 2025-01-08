@@ -18,8 +18,6 @@ export const ChatPage = () => {
 }
 
 const Chat = () => {
-
-
     return <div>
         <Messages/>
         <ChatInput/>
@@ -28,6 +26,7 @@ const Chat = () => {
 
 const Messages = () => {
     const [message, setMessages] = useState<MessageType[]>([])
+
     useEffect(() => {
 
         wsChannel.addEventListener('message', (e) => {
